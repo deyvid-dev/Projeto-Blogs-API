@@ -26,13 +26,11 @@ const atributes = {
 }
 
 module.exports = (sequelize) => {
-  const user = sequelize.define('User',
+  const User = sequelize.define('User',
     atributes,
     {
-      underscored: true, // faz um field em todas as propriedades
       timestamps: false,
-      tableName: 'User'
     },
   );
-  return user;
+  return User;
 };
