@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 
 module.exports = async (req, res, next) => {
   const token = await req.headers.authorization;
-  // console.log(token);
   if (!token) return res.status(401).json({ message: 'Token not found' });
   try {
     const result = await jwt.verify(token, process.env.JWT_SECRET);
