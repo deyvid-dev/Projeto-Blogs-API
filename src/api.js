@@ -13,7 +13,6 @@ app.use(express.json());
 
 app.use('/login', loginRoute);
 app.use('/user', userRoute);
-
 app.use(errorMiddleware);
 
 // É importante exportar a constante `app`,
