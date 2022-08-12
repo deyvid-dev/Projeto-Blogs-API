@@ -37,4 +37,12 @@ const getById = async (req, res) => {
   return res.status(200).json(user);
 };
 
-module.exports = { createUser, getUsers, getById };
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  const dltUser = await User.findByPk(id, 
+    { raw: true, attributes: { exclude: ['password'] },
+  });
+  return res.status(204).end(dltUser);
+};
+
+module.exports = { createUser, getUsers, getById, deleteUser };
