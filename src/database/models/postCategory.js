@@ -24,12 +24,16 @@ module.exports = (sequelize) => {
       through: PostCategory,
       foreignKey: 'postId',
       otherKey: 'categoryId',
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     });
     models.BlogPost.belongsToMany(models.Category, {
       as: 'categories',
       through: PostCategory,
       foreignKey: 'categoryId',
       otherKey: 'postId',
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     });
   };
   return PostCategory;

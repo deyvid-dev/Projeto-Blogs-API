@@ -21,11 +21,9 @@ const atributes = {
   },
   published: {
     type: DataTypes.DATE,
-    allowNull: false
   },
   updated: {
     type: DataTypes.DATE,
-    allowNull: false
   }
 }
 
@@ -38,7 +36,7 @@ module.exports = (sequelize) => {
   );
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User,
-      { foreignKey: 'userId', as: 'user' });
+      { foreignKey: 'userId', as: 'user', onDelete: 'CASCADE' });
   };
   return BlogPost;
 };
