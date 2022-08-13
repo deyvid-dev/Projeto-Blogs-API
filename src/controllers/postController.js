@@ -62,4 +62,26 @@ const createPost = async (req, res) => {
 
   return res.status(201).json(post);
 };
-module.exports = { getAll, getById, deletePost, createPost };
+
+const updatePost = async (req, res) => {
+  // const { id } = req.params;
+  const { title, content } = req.body;
+  const { tokenCreated, params: { id } } = req;
+  if (!title || !content) {
+return res.status(400).json({ message: 'Some required fields are missing' });
+  }
+  const findId = await BlogPost.findOne({ where: { id } });
+  if (findId.userId !== tokenCreated.id) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+   await BlogPost.update({ title, content },
+   { where: { id },
+   });
+   const post = await BlogPost.findByPk(id, {
+    include: [{ model: User, as: 'user', attributes: { exclude: 'password' } },
+    { model: Category, as: 'categories', through: { attributes: [] } }],
+  });
+   return res.status(200).json(post);
+};
+
+module.exports = { getAll, getById, deletePost, createPost, updatePost };
